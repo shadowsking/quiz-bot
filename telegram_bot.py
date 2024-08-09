@@ -65,9 +65,7 @@ def handle_new_question_request(update: Update, context: CallbackContext) -> Non
     questions = context.dispatcher.questions
     random_question_index = randint(0, len(questions) - 1)
     text = context.dispatcher.questions[random_question_index]["question"]
-    context.dispatcher.redis.set(
-        update.message.from_user.id, int(random_question_index)
-    )
+    context.dispatcher.redis.set(update.message.from_user.id, random_question_index)
     update.message.reply_text(text)
 
     return ATTEMPT
