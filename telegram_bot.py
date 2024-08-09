@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+from difflib import SequenceMatcher
 from random import randint
 
 import dotenv
@@ -73,12 +74,18 @@ def handle_new_question_request(update: Update, context: CallbackContext) -> Non
 
 
 def handle_solution_attempt(update: Update, context: CallbackContext) -> int:
-    text = update.message.text
-    if text != get_answer(update, context):  # todo
+    if update.message is None:
+        return ATTEMPT
+
+    matched = SequenceMatcher(
+        a=update.message.text.lower(), b=get_answer(update, context).lower()
+    )
+    if matched.ratio() < 0.7:
         update.message.reply_text("Неправильно… Попробуешь ещё раз?")
         return ATTEMPT
 
-    return NEW_QUESTION
+    update.message.reply_text("Правильно!")
+    return handle_new_question_request(update, context)
 
 
 def get_keyboard_markup():
