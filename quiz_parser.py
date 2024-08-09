@@ -55,18 +55,18 @@ def get_questions_from_json(path):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create new intents from json file")
+    parser = argparse.ArgumentParser(
+        description="Parse and save the questions in json format"
+    )
     parser.add_argument(
         "-d",
         "--dir_path",
-        type=str,
         help="The path to the folder with questions",
         default="quiz-questions",
     )
     parser.add_argument(
         "-f",
         "--file",
-        type=str,
         help="The path to the json file with the questions",
         default="questions.json",
     )

@@ -99,18 +99,17 @@ def main() -> None:
     parser.add_argument(
         "-f",
         "--file",
-        type=str,
         help="The path to the json file with the questions",
         default="questions.json",
     )
     args = parser.parse_args()
 
-    updater = Updater(os.getenv("TELEGRAM_TOKEN"))
+    updater = Updater(os.environ["TELEGRAM_TOKEN"])
 
     dispatcher = updater.dispatcher
     dispatcher.redis = redis.Redis(
-        host=os.environ.get("REDIS_HOST", "localhost"),
-        port=os.environ.get("REDIS_PORT", 6379),
+        host=os.getenv("REDIS_HOST", "localhost"),
+        port=os.getenv("REDIS_PORT", 6379),
         db=0,
     )
     dispatcher.questions = quiz_parser.get_questions_from_json(args.file)
