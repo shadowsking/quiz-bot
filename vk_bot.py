@@ -4,13 +4,12 @@ from difflib import SequenceMatcher
 from random import randint
 
 import dotenv
+import quiz_parser
 import redis
 import vk_api as vk
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.utils import get_random_id
-
-import quiz_parser
 
 START = "Начать"
 NEW_QUESTION = "Новый вопрос"
@@ -49,7 +48,7 @@ def handle_solution_attempt(event, vk_api, redis_client, questions, **kwargs):
 
 
 def handle_new_question_request(
-        vk_api, redis_client, questions, user_id=None, **kwargs
+    vk_api, redis_client, questions, user_id=None, **kwargs
 ):
     random_question_index = randint(0, len(questions) - 1)
     redis_client.set(user_id, random_question_index)
