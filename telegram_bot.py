@@ -85,7 +85,8 @@ def main() -> None:
     dotenv.load_dotenv()
 
     logging.basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.ERROR
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        level=logging.ERROR,
     )
     logger.setLevel(logging.INFO)
 
