@@ -18,11 +18,6 @@ from telegram.ext import (
     ConversationHandler,
 )
 
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-
 logger = logging.getLogger(__name__)
 
 (NEW_QUESTION, ATTEMPT, SURRENDER) = range(3)
@@ -39,10 +34,6 @@ def stop(update: Update, context: CallbackContext) -> int:
     context.dispatcher.redis.delete(update.message.from_user.id)
     update.message.reply_text("Пока", reply_markup=ReplyKeyboardRemove())
     return ConversationHandler.END
-
-
-def help_command(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Help!")
 
 
 def get_answer(update: Update, context: CallbackContext) -> str | None:
@@ -92,6 +83,11 @@ def get_keyboard_markup():
 
 def main() -> None:
     dotenv.load_dotenv()
+
+    logging.basicConfig(
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.ERROR
+    )
+    logger.setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="Quiz")
     parser.add_argument(

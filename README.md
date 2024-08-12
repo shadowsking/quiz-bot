@@ -19,6 +19,13 @@ pip install -r requirements.txt
 
 
 ### Запуск
+#### Подготовка файлов с вопросами
+```bash
+python quiz_parser.py
+```
+- -d (--dir_path): путь к исходной папке
+- -f (--file): путь к конечному ".json" файлу
+
 #### Telegram бот:
 ```bash
 python telegram_bot.py
@@ -28,3 +35,5 @@ python telegram_bot.py
 ```bash
 python vk_bot.py
 ```
+
+- -f (--file): путь к ".json" файлу с вопросами
